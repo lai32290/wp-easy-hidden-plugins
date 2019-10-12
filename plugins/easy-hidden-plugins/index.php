@@ -9,10 +9,9 @@ add_filter('all_plugins', 'hide_plugins');
 
 function hide_plugins($plugins) {
     $TEXT_DOMAIN = 'easy-hidden-plugins';
-    $current_user = wp_get_current_user();
     $hidden_list = [ 'akismet' ];
 
-    if (!($current_user->user_login === 'admin' || $current_user->ID == 1)) {
+    if (!is_active_to_current_user()) {
         return $plugins;
     }
 
@@ -30,3 +29,7 @@ function hide_plugins($plugins) {
     return $plugins;
 }
 
+function is_active_to_current_user() {
+    $current_user = wp_get_current_user();
+   return $current_user->user_login === 'admin' || $current_user->ID == 1;
+}
