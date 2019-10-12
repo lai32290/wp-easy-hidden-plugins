@@ -5,6 +5,8 @@
  * Description: Hidden installed plugin from the list easily.
  */
 
+require_once(plugin_dir_path(__FILE__) . '/includes/setting-page.php');
+
 add_filter('all_plugins', 'hide_plugins');
 
 function hide_plugins($plugins) {
