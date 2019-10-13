@@ -5,9 +5,7 @@ add_filter('all_plugins', 'hide_plugins');
 function hide_plugins($plugins) {
     $TEXT_DOMAIN = 'easy-hidden-plugins';
     $hidden_list = get_option('easy_hidden_plugins_hidden', []);
-    if ($hidden_list === "") {
-        $hidden_list = [];
-    }
+    $hidden_list = empty($hidden_list) ? [] : $hidden_list;
 
     if (!is_active_to_current_user()) {
         return $plugins;

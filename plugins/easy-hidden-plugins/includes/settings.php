@@ -7,7 +7,7 @@ add_action('admin_menu', 'myplugin_register_options_page');
 
 function myplugin_options_page($args)
 {
-    $hidden_list = get_option('easy_hidden_plugins_hidden', false);
+    $hidden_list = get_option('easy_hidden_plugins_hidden', []);
     $plugins = get_plugins();
 ?>
     <div>
