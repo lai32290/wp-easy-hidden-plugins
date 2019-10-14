@@ -1,13 +1,12 @@
 <?php
 
 add_filter('all_plugins', 'hide_plugins');
-
 function hide_plugins($plugins) {
     $TEXT_DOMAIN = 'easy-hidden-plugins';
     $hidden_list = get_option('easy_hidden_plugins_hidden', []);
     $hidden_list = empty($hidden_list) ? [] : $hidden_list;
 
-    if (is_visible_to_current_user()) {
+    if (apply_filters('ehp_is_visible', false)) {
         return $plugins;
     }
 
@@ -18,13 +17,14 @@ function hide_plugins($plugins) {
         }
 
         if (in_array($text_domain, $hidden_list) && is_plugin_active($key)) {
-            unset($plugins[$key]);
+            unset($plugins[ $key ]);
         }
     }
 
     return $plugins;
 }
 
+add_filter('ehp_is_visible', 'is_visible_to_current_user');
 function is_visible_to_current_user() {
 	$roles_list = get_option('easy_hidden_plugins_roles', []);
 	$roles_list = empty($roles_list) ? [] : $roles_list;
